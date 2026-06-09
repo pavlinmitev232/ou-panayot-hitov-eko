@@ -25,7 +25,13 @@ The current `dist` folder still contains files larger than that:
 | `как да опазим гоо.pdf` | 25.82 MiB |
 | `КАК ДА ОПАЗИМ РЕКИТЕ(1).pptx` | 25.43 MiB |
 
-These are only slightly over the limit, but Cloudflare may reject them. Before final deployment, move these original files to Google Drive or Cloudflare R2, then update the site links so the public site still has the preview and download buttons.
+These originals are intentionally not copied into `dist`. They are linked from Google Drive/Slides instead, while the site keeps local rendered PDF previews where available.
+
+| File | External original |
+| --- | --- |
+| `Топ 10 най мащабнипожари.pptx` | https://docs.google.com/presentation/d/1r7AgWpYV_waWXQzWFBUL4h57-1V_Thfr/edit?usp=drive_link&ouid=115949256847589915994&rtpof=true&sd=true |
+| `КАК ДА ОПАЗИМ РЕКИТЕ(1).pptx` | https://docs.google.com/presentation/d/1GWJ6wHkEuPmKqefywkxANtdT7pkLbYJy/edit?usp=drive_link&ouid=115949256847589915994&rtpof=true&sd=true |
+| `как да опазим гоо.pdf` | https://drive.google.com/file/d/1CnTHKTu1oiYmSi4_nWSIeZvK2omRzIQe/view?usp=drive_link |
 
 ## Recommended setup for this project
 

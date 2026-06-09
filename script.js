@@ -230,6 +230,7 @@ function resourceCard(file) {
     : preview ? `<a class="btn ghost" href="${assetUrl(preview)}" target="_blank" rel="noreferrer"><i class="fa-solid ${previewIcon}"></i>${previewLabel}</a>` : "";
   const originalButton = youtubeId
     ? `<a class="btn green" href="${youtubeWatchUrl(youtubeId)}" target="_blank" rel="noreferrer"><i class="fa-brands fa-youtube"></i>YouTube</a>`
+    : file.externalUrl ? `<a class="btn green" href="${escapeHtml(file.externalUrl)}" target="_blank" rel="noreferrer"><i class="fa-solid fa-up-right-from-square"></i>Оригинал</a>`
     : file.external ? ""
     : `<a class="btn green" href="${assetUrl(file.path)}" download><i class="fa-solid fa-download"></i>Оригинал</a>`;
   return `<article class="resource-card reveal"><span class="round-icon"><i class="fa-solid ${fileIcon(file)}"></i></span><div><h3>${escapeHtml(cleanTitle(file.name))}</h3><p>${fileCategory(file.path)} - ${file.ext.replace(".", "").toUpperCase()}${previewMeta}</p><span class="tag">${Math.round(file.size / 1024)} KB</span></div>${previewButton}${originalButton}</article>`;
@@ -237,7 +238,9 @@ function resourceCard(file) {
 
 function presentationCard(file, viewerId) {
   const preview = previewFor(file);
-  const originalButton = file.external ? "" : `<a class="btn green" href="${assetUrl(file.path)}" download><i class="fa-solid fa-download"></i>Оригинал</a>`;
+  const originalButton = file.externalUrl
+    ? `<a class="btn green" href="${escapeHtml(file.externalUrl)}" target="_blank" rel="noreferrer"><i class="fa-solid fa-up-right-from-square"></i>Оригинал</a>`
+    : file.external ? "" : `<a class="btn green" href="${assetUrl(file.path)}" download><i class="fa-solid fa-download"></i>Оригинал</a>`;
   const viewerBody = preview
     ? `<iframe class="preview-frame" src="${assetUrl(preview)}#toolbar=0&navpanes=0&scrollbar=1" title="${escapeHtml(cleanTitle(file.name))}"></iframe>`
     : `<div class="preview-frame missing-preview"><i class="fa-solid fa-file-circle-exclamation"></i><p>Файлът не е включен в публичната версия.</p></div>`;

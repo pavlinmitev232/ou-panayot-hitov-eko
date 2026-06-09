@@ -20,6 +20,11 @@ YOUTUBE_VIDEO_FILES = {
     "0-02-05-64fa666c0efa64c32db3089c87491c7f5364d7c1bbe9a18fbd7b7b00c6a6ddb6_1083a4ebf27f21a5.mp4",
     "0-02-05-d78b2bc10969a9ee527e8b4f17301a67d35b8c0c67bffae766fab5122ffa24c4_3e523bd8aacf29c1.mp4",
 }
+EXTERNAL_ORIGINAL_URLS = {
+    "Топ 10 най мащабнипожари.pptx": "https://docs.google.com/presentation/d/1r7AgWpYV_waWXQzWFBUL4h57-1V_Thfr/edit?usp=drive_link&ouid=115949256847589915994&rtpof=true&sd=true",
+    "КАК ДА ОПАЗИМ РЕКИТЕ(1).pptx": "https://docs.google.com/presentation/d/1GWJ6wHkEuPmKqefywkxANtdT7pkLbYJy/edit?usp=drive_link&ouid=115949256847589915994&rtpof=true&sd=true",
+    "как да опазим гоо.pdf": "https://drive.google.com/file/d/1CnTHKTu1oiYmSi4_nWSIeZvK2omRzIQe/view?usp=drive_link",
+}
 
 
 def read_json(path: Path):
@@ -98,6 +103,8 @@ def build_uploads() -> dict:
         elif item["size"] > PAGES_MAX_ASSET_BYTES:
             new_item["external"] = "cloudflare-pages-limit"
             new_item["originalPath"] = item["path"]
+            if item["file"] in EXTERNAL_ORIGINAL_URLS:
+                new_item["externalUrl"] = EXTERNAL_ORIGINAL_URLS[item["file"]]
             stats["skippedPagesLimitFiles"] += 1
         else:
             rel = Path(src_rel).relative_to("assets/uploads")
