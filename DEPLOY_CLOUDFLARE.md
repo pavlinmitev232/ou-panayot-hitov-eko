@@ -9,15 +9,15 @@ Use this file as the deployment checklist when the site is ready to go public.
 - Host the static website on Cloudflare Pages.
 - Upload only the built `dist` folder.
 - Do not upload `school_non_site_workspace`, backups, source-only tooling, or old files.
-- Move oversized original downloads out of Pages before the final upload.
+- Oversized original downloads are linked from Google Drive/Slides instead of being copied into `dist`.
 - Keep readable PDF previews in the site.
 - Videos now use embedded YouTube links and play inside the site.
 
-## Important current blocker
+## Important file-size handling
 
 Cloudflare Pages Direct Upload has a per-file asset limit of `25 MiB`.
 
-The current `dist` folder still contains files larger than that:
+The source archive contains originals larger than that:
 
 | File | Size |
 | --- | ---: |
@@ -25,7 +25,7 @@ The current `dist` folder still contains files larger than that:
 | `как да опазим гоо.pdf` | 25.82 MiB |
 | `КАК ДА ОПАЗИМ РЕКИТЕ(1).pptx` | 25.43 MiB |
 
-These originals are intentionally not copied into `dist`. They are linked from Google Drive/Slides instead, while the site keeps local rendered PDF previews where available.
+These originals are intentionally not copied into `dist`. They are linked from Google Drive/Slides instead, while the site keeps local rendered PDF previews where available. The current deploy folder should have no files over `25 MiB`.
 
 | File | External original |
 | --- | --- |
@@ -90,21 +90,32 @@ The result must be empty before a clean Cloudflare Pages upload.
 2. Open `Workers & Pages`.
 3. Choose `Create application`.
 4. Choose `Pages`.
-5. Choose `Upload assets` / `Direct Upload`.
+5. Choose `Connect to Git`.
 6. Create a project name, for example:
 
 ```text
 ou-panayot-hitov-eko
 ```
 
-7. Upload the folder:
+7. Select the GitHub repository:
 
 ```text
-C:\Users\halor\Documents\school\dist
+pavlinmitev232/ou-panayot-hitov-eko
 ```
 
-8. Deploy.
-9. Open the generated address:
+8. Use these build settings:
+
+```text
+Framework preset: None
+Build command: leave empty
+Build output directory: dist
+Root directory: /
+```
+
+Do not use `python build_dist.py` as the Cloudflare build command. The optimized `dist` folder is already committed to GitHub, and Cloudflare does not need to rebuild it.
+
+9. Deploy.
+10. Open the generated address:
 
 ```text
 https://PROJECT_NAME.pages.dev
