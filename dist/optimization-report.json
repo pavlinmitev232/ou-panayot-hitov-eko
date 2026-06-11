@@ -1,10 +1,10 @@
 {
-  "originalImageBytes": 141886657,
-  "optimizedImageBytes": 38907828,
-  "copiedBytes": 139141699,
-  "images": 242,
-  "files": 274,
-  "skippedPagesLimitFiles": 3,
-  "distBytes": 225831907,
-  "sourceBytes": 958820365
+  "originalImageBytes": 176173127,
+  "optimizedImageBytes": 41385764,
+  "copiedBytes": 100217005,
+  "images": 258,
+  "files": 288,
+  "skippedPagesLimitFiles": 2,
+  "distBytes": 210471471,
+  "sourceBytes": 1154253640
 }
