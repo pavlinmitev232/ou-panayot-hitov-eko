@@ -846,6 +846,87 @@
     "size": 2352673
   },
   {
+    "path": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-23-752.webp",
+    "name": "viber_image_2026-06-11_20-02-23-752",
+    "file": "viber_image_2026-06-11_20-02-23-752.webp",
+    "ext": ".webp",
+    "size": 119778,
+    "originalPath": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-23-752.jpg",
+    "originalSize": 208310
+  },
+  {
+    "path": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-24-730.webp",
+    "name": "viber_image_2026-06-11_20-02-24-730",
+    "file": "viber_image_2026-06-11_20-02-24-730.webp",
+    "ext": ".webp",
+    "size": 126578,
+    "originalPath": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-24-730.jpg",
+    "originalSize": 251629
+  },
+  {
+    "path": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-25-399.webp",
+    "name": "viber_image_2026-06-11_20-02-25-399",
+    "file": "viber_image_2026-06-11_20-02-25-399.webp",
+    "ext": ".webp",
+    "size": 103522,
+    "originalPath": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-25-399.jpg",
+    "originalSize": 240100
+  },
+  {
+    "path": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-26-081.webp",
+    "name": "viber_image_2026-06-11_20-02-26-081",
+    "file": "viber_image_2026-06-11_20-02-26-081.webp",
+    "ext": ".webp",
+    "size": 120228,
+    "originalPath": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-26-081.jpg",
+    "originalSize": 211109
+  },
+  {
+    "path": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-26-764.webp",
+    "name": "viber_image_2026-06-11_20-02-26-764",
+    "file": "viber_image_2026-06-11_20-02-26-764.webp",
+    "ext": ".webp",
+    "size": 122188,
+    "originalPath": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-26-764.jpg",
+    "originalSize": 210069
+  },
+  {
+    "path": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-28-072.webp",
+    "name": "viber_image_2026-06-11_20-02-28-072",
+    "file": "viber_image_2026-06-11_20-02-28-072.webp",
+    "ext": ".webp",
+    "size": 64604,
+    "originalPath": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-28-072.jpg",
+    "originalSize": 155122
+  },
+  {
+    "path": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-28-904.webp",
+    "name": "viber_image_2026-06-11_20-02-28-904",
+    "file": "viber_image_2026-06-11_20-02-28-904.webp",
+    "ext": ".webp",
+    "size": 120524,
+    "originalPath": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-28-904.jpg",
+    "originalSize": 219968
+  },
+  {
+    "path": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-30-143.webp",
+    "name": "viber_image_2026-06-11_20-02-30-143",
+    "file": "viber_image_2026-06-11_20-02-30-143.webp",
+    "ext": ".webp",
+    "size": 93500,
+    "originalPath": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-30-143.jpg",
+    "originalSize": 182000
+  },
+  {
+    "path": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-31-485.webp",
+    "name": "viber_image_2026-06-11_20-02-31-485",
+    "file": "viber_image_2026-06-11_20-02-31-485.webp",
+    "ext": ".webp",
+    "size": 87494,
+    "originalPath": "/assets/uploads/q-20260608T165407Z-3-001/хранене/viber_image_2026-06-11_20-02-31-485.jpg",
+    "originalSize": 183884
+  },
+  {
     "path": "/assets/uploads/Водата – извор на живот и отговорност на човека! -20260611T161929Z-3-001/Водата – извор на живот и отговорност на човека!_/Лекция външен лектор/Лекция_Сливен_Води_2026.pptx",
     "name": "Лекция_Сливен_Води_2026",
     "file": "Лекция_Сливен_Води_2026.pptx",
@@ -2532,12 +2613,5 @@
     "file": "Топ 10 най мащабните пожари.pptx.pdf",
     "ext": ".pdf",
     "size": 3378365
-  },
-  {
-    "path": "/assets/uploads/Структура на сайта.docx",
-    "name": "Структура на сайта",
-    "file": "Структура на сайта.docx",
-    "ext": ".docx",
-    "size": 19112
   }
 ]

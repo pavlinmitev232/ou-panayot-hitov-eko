@@ -3,6 +3,7 @@ const PAGE = document.body.dataset.page || "home";
 
 let uploads = [];
 let renderedPdfs = [];
+const HERO_VIDEO_PATH = "/assets/uploads/Седмо.mp4";
 
 const youtubeVideos = {
   "0-02-05-0e3bcc38283e486b1e62cbc6c1ee06d15fdbdb0a59d511de591992d7a8d4e192_f6c8a18682fe0a7.mp4": "MScX02LepHo",
@@ -116,7 +117,7 @@ function homePage() {
   const cover = firstImage("Хранене") || firstImage("Води") || firstImage("Гори");
   shell(`
     <section class="hero-video-section project-home">
-      <div class="video-background">${cover ? `<img class="hero-video" src="${assetUrl(cover)}" alt="">` : ""}<div class="video-overlay"></div></div>
+      <div class="video-background">${cover ? `<img class="hero-video hero-fallback" src="${assetUrl(cover)}" alt="">` : ""}<video class="hero-video hero-local-video" src="${assetUrl(HERO_VIDEO_PATH)}" autoplay muted loop playsinline preload="metadata"></video><div class="video-overlay"></div></div>
       <div class="container hero-content stagger"><p class="eyebrow">Проект по Национална програма „Иновации в действие“, Модул 1</p><h1>Иновации в действие: Интердисциплинарни дейности в училище</h1><p>Добре дошли на официалната платформа, посветена на иновативните образователни практики в нашето училище.</p><div class="hero-stats">${stats()}</div></div>
     </section>
     ${section("Представяне на проекта и целите", "", `<div class="about-card reveal"><p>Чрез проектно-базирано и интердисциплинарно обучение учениците от начален и прогимназиален етап доказаха, че знанието няма граници, когато предметите се преплитат в името на реалния живот.</p><p>Тук ще откриете как теориите от учебниците по Математика, БЕЛ, Човекът и природата, КМИТ и Английски език се превръщат в софтуерни програми, екологични изследвания, брошури с кауза и здравословни рецепти.</p></div>`)}
@@ -159,8 +160,14 @@ function forestPage() {
 function healthyPage() {
   shell(`${hero("Здравословно хранене: Насоки за ума, тялото и тонуса", "Човекът и природата, КМИТ, Математика, БЕЛ, Английски език", "fa-apple-whole", "Прогимназиален етап - Тема 3")}
     ${section("Здравословно хранене за всички", "", `<div class="grid-2 reveal"><div class="white-card project-text"><p>Учениците от 5. и 7. клас се потопиха в диетологията чрез теория, дигитални технологии и много вкусна практика.</p><p><strong>Биология и диетология:</strong> научиха как влияе балансираното хранене и какви са опасностите от вредните навици.</p><p><strong>Специални гости:</strong> учениците посрещнаха бъдещи специалисти от Университета по хранителни технологии - Пловдив, Цветомира Цумпова и Димитър Желев. Лекция изнесе и сливенският диетолог Ваня Проданова.</p><p><strong>Практика:</strong> приготвяха здравословна закуска, смутита и полезни менюта.</p><p><strong>КМИТ, Математика, БЕЛ и АЕ:</strong> работиха с приложения за калории и вода, създадоха презентации с рецепти, седмични менюта, есета, статии и брошури.</p></div>${imagePanel("Хранене")}</div>`)}
+    ${guestLectureSection()}
     ${resourceSection("Рецепти, менюта, есета и презентации", "Хранене", true)}
     ${galleryPreview("Снимки от здравословното хранене", "Хранене")}`);
+}
+
+function guestLectureSection() {
+  const images = nutritionLectureImages();
+  return section("Знание, поднесено с усмивка", "Лекция със специален гост д-р Ваня Проданова.", `<div class="grid-2 reveal"><div class="white-card project-text"><p>Специален гост-лектор на събитието беше <strong>д-р Ваня Проданова</strong> - доказан експерт по хранене и диететика и доктор по хранителни науки.</p><p>По време на лекцията д-р Проданова по интересен и достъпен за възрастта на децата начин обясни:</p><ul class="bullet-list"><li>Какво означава „балансирана чиния“ и кои са основните хранителни групи.</li><li>Защо захарта и преработените храни имат по-добри алтернативи.</li><li>Как правилните хранителни навици ни дават повече енергия за спорт и учене.</li></ul></div><div class="lecture-gallery">${images.map(galleryItem).join("")}</div></div>`, true, "vanya-prodanova-lecture");
 }
 
 function galleryPage() {
@@ -208,6 +215,10 @@ function imagePanel(category) {
 function galleryPreview(title, category) {
   const images = categoryImages(category).slice(0, 8);
   return section(title, `${categoryImages(category).length} снимки`, `<div class="gallery-grid stagger">${images.map(galleryItem).join("")}</div><p style="text-align:center;margin-top:32px"><a class="btn green" href="/gallery/"><i class="fa-solid fa-images"></i>Виж всички снимки</a></p>`, true);
+}
+
+function nutritionLectureImages() {
+  return galleryFiles().filter(file => (file.originalPath || file.path).toLowerCase().includes("/хранене/")).slice(0, 9);
 }
 
 function galleryItem(file) {
@@ -366,6 +377,10 @@ function youtubeEmbedUrl(id) {
   return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
 }
 
+function youtubeBackgroundUrl(id) {
+  return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&modestbranding=1&playsinline=1&rel=0`;
+}
+
 function youtubeWatchUrl(id) {
   return `https://youtu.be/${id}`;
 }
@@ -392,7 +407,7 @@ function fileIcon(file) {
 }
 
 function cleanTitle(name) {
-  return name.replace(/[_-]+/g, " ").replace(/\s+/g, " ").replace(/\(\d+\)$/g, "").trim();
+  return name.replace(/\.(pptx|docx|ppt|doc)$/i, "").replace(/[_-]+/g, " ").replace(/\s+/g, " ").replace(/\(\d+\)$/g, "").trim();
 }
 
 function escapeHtml(value = "") {

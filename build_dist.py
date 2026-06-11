@@ -25,6 +25,7 @@ RENDERED_PDFS = ASSETS / "rendered-pdfs"
 DIST_ASSETS = DIST / "assets"
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".heic", ".heif"}
 OFFICE_EXTS = {".docx", ".pptx"}
+PRIVATE_UPLOAD_FILES = {"Седмо.mp4", "Структура на сайта.docx"}
 PAGES_MAX_ASSET_BYTES = 25 * 1024 * 1024
 SOFFICE = Path(r"C:\Program Files\LibreOffice\program\soffice.exe")
 FFMPEG_CANDIDATES = [
@@ -63,7 +64,7 @@ def clean_stem(path: Path) -> str:
 def make_upload_manifest() -> list[dict]:
     items = []
     for src in sorted(UPLOADS.rglob("*"), key=lambda p: p.as_posix().lower()):
-        if not src.is_file() or src.name.lower() == "manifest.json":
+        if not src.is_file() or src.name.lower() == "manifest.json" or src.name in PRIVATE_UPLOAD_FILES:
             continue
         rel = src.relative_to(ROOT).as_posix()
         stat = src.stat()
@@ -248,6 +249,12 @@ def copy_tree_filtered() -> None:
     if (ASSETS / "vendor").exists():
         shutil.copytree(ASSETS / "vendor", DIST_ASSETS / "vendor")
     shutil.copytree(RENDERED_PDFS, DIST_ASSETS / "rendered-pdfs")
+    for file_name in {"Седмо.mp4"}:
+        src = UPLOADS / file_name
+        if src.exists():
+            dest = DIST_ASSETS / "uploads" / file_name
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dest)
 
 
 def build_uploads() -> dict:
