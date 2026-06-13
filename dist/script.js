@@ -119,8 +119,9 @@ function homePage() {
     <section class="hero-video-section project-home">
       <div class="video-background">${cover ? `<img class="hero-video hero-fallback" src="${assetUrl(cover)}" alt="">` : ""}<video class="hero-video hero-local-video" src="${assetUrl(HERO_VIDEO_PATH)}" autoplay muted loop playsinline preload="metadata"></video><div class="video-overlay"></div></div>
       <div class="container hero-content stagger"><p class="eyebrow">Проект по Национална програма „Иновации в действие“, Модул 1</p><h1>Иновации в действие: Интердисциплинарни дейности в училище</h1><p>Добре дошли на официалната платформа, посветена на иновативните образователни практики в нашето училище.</p><div class="hero-stats">${stats()}</div></div>
+      <a class="scroll-indicator" href="#project-intro"><i class="fa-solid fa-chevron-down"></i><span>надолу</span></a>
     </section>
-    ${section("Представяне на проекта и целите", "", `<div class="about-card reveal"><p>Чрез проектно-базирано и интердисциплинарно обучение учениците от начален и прогимназиален етап доказаха, че знанието няма граници, когато предметите се преплитат в името на реалния живот.</p><p>Тук ще откриете как теориите от учебниците по Математика, БЕЛ, Човекът и природата, КМИТ и Английски език се превръщат в софтуерни програми, екологични изследвания, брошури с кауза и здравословни рецепти.</p></div>`)}
+    ${section("Представяне на проекта и целите", "", `<div class="about-card reveal"><p>Чрез проектно-базирано и интердисциплинарно обучение учениците от начален и прогимназиален етап доказаха, че знанието няма граници, когато предметите се преплитат в името на реалния живот.</p><p>Тук ще откриете как теориите от учебниците по Математика, БЕЛ, Човекът и природата, КМИТ и Английски език се превръщат в софтуерни програми, екологични изследвания, брошури с кауза и здравословни рецепти.</p></div>`, false, "project-intro")}
     ${section("Структура на проекта", "Разделите следват изискванията от предоставения файл.", `<div class="topics-grid stagger">${projectPages.map(projectCard).join("")}</div>`, true)}
   `);
 }
@@ -253,10 +254,10 @@ function presentationCard(file, viewerId) {
     ? `<a class="btn green" href="${escapeHtml(file.externalUrl)}" target="_blank" rel="noreferrer"><i class="fa-solid fa-up-right-from-square"></i>Оригинал</a>`
     : file.external ? "" : `<a class="btn green" href="${assetUrl(file.path)}" download><i class="fa-solid fa-download"></i>Оригинал</a>`;
   const viewerBody = preview
-    ? `<iframe class="preview-frame" src="${assetUrl(preview)}#toolbar=0&navpanes=0&scrollbar=1" title="${escapeHtml(cleanTitle(file.name))}"></iframe>`
+    ? `<iframe class="preview-frame" data-src="${assetUrl(preview)}#toolbar=0&navpanes=0&scrollbar=1" title="${escapeHtml(cleanTitle(file.name))}" loading="lazy"></iframe>`
     : `<div class="preview-frame missing-preview"><i class="fa-solid fa-file-circle-exclamation"></i><p>Файлът не е включен в публичната версия.</p></div>`;
   return `<article class="presentation-card reveal">
-    <div class="presentation-header"><div class="presentation-icon"><i class="fa-solid ${fileIcon(file)}"></i></div><div class="presentation-info"><h3>${escapeHtml(cleanTitle(file.name))}</h3><p>${fileCategory(file.path)} - ${file.ext.replace(".", "").toUpperCase()}</p><div class="tag-row"><span class="tag">${fileCategory(file.path)}</span><span class="tag">${file.ext}</span>${preview && file.ext !== ".pdf" ? `<span class="tag">PDF преглед</span>` : ""}</div></div><button class="btn toggle-viewer-btn" data-viewer="${viewerId}"><i class="fa-solid fa-eye"></i>Преглед</button></div>
+    <div class="presentation-header"><div class="presentation-icon"><i class="fa-solid ${fileIcon(file)}"></i></div><div class="presentation-info"><h3>${escapeHtml(cleanTitle(file.name))}</h3><p>${fileCategory(file.path)} - ${file.ext.replace(".", "").toUpperCase()}</p><div class="tag-row"><span class="tag">${fileCategory(file.path)}</span><span class="tag">${file.ext}</span>${preview && file.ext !== ".pdf" ? `<span class="tag">PDF преглед</span>` : ""}</div></div><button class="btn toggle-viewer-btn" data-viewer="${viewerId}" data-preview="${preview ? assetUrl(preview) : ""}"><i class="fa-solid fa-eye"></i>Преглед</button></div>
     <div class="presentation-viewer" id="${viewerId}"><div class="viewer-actions">${preview ? `<a class="btn ghost" href="${assetUrl(preview)}" target="_blank" rel="noreferrer"><i class="fa-solid fa-up-right-from-square"></i>Отвори PDF</a>` : ""}${originalButton}<button class="btn close-viewer-btn" data-viewer="${viewerId}"><i class="fa-solid fa-xmark"></i>Затвори</button></div>${viewerBody}</div>
   </article>`;
 }
@@ -301,19 +302,36 @@ function wireGalleryItems() {
 }
 
 function wirePresentationViewers() {
-  document.querySelectorAll(".toggle-viewer-btn").forEach(button => button.addEventListener("click", () => {
-    const viewer = document.getElementById(button.dataset.viewer);
-    const open = !viewer.classList.contains("open");
-    viewer.classList.toggle("open", open);
-    button.innerHTML = open ? '<i class="fa-solid fa-eye-slash"></i>Скрий' : '<i class="fa-solid fa-eye"></i>Преглед';
-    if (open) setTimeout(() => viewer.scrollIntoView({ behavior: "smooth", block: "nearest" }), 80);
-  }));
+  document.querySelectorAll(".toggle-viewer-btn").forEach(button => {
+    if (shouldOpenPdfDirectly() && button.dataset.preview) {
+      button.innerHTML = '<i class="fa-solid fa-up-right-from-square"></i>Отвори PDF';
+    }
+
+    button.addEventListener("click", () => {
+      if (shouldOpenPdfDirectly() && button.dataset.preview) {
+        window.location.href = button.dataset.preview;
+        return;
+      }
+
+      const viewer = document.getElementById(button.dataset.viewer);
+      const open = !viewer.classList.contains("open");
+      viewer.classList.toggle("open", open);
+      const frame = viewer.querySelector(".preview-frame[data-src]");
+      if (open && frame && !frame.src) frame.src = frame.dataset.src;
+      button.innerHTML = open ? '<i class="fa-solid fa-eye-slash"></i>Скрий' : '<i class="fa-solid fa-eye"></i>Преглед';
+      if (open) setTimeout(() => viewer.scrollIntoView({ behavior: "smooth", block: "nearest" }), 80);
+    });
+  });
   document.querySelectorAll(".close-viewer-btn").forEach(button => button.addEventListener("click", () => {
     const viewer = document.getElementById(button.dataset.viewer);
     viewer.classList.remove("open");
     const toggle = document.querySelector(`.toggle-viewer-btn[data-viewer="${button.dataset.viewer}"]`);
     if (toggle) toggle.innerHTML = '<i class="fa-solid fa-eye"></i>Преглед';
   }));
+}
+
+function shouldOpenPdfDirectly() {
+  return window.matchMedia("(max-width: 820px), (pointer: coarse)").matches;
 }
 
 function wireVideoPlayers() {

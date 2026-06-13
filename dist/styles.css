@@ -571,9 +571,15 @@ img, video, iframe { max-width: 100%; }
   .nav-menu a, .dropdown-toggle { width: 100%; }
   .dropdown-menu { position: static; display: none; width: 100%; border-radius: 0; box-shadow: none; opacity: 1; transform: none; pointer-events: auto; }
   .dropdown.open .dropdown-menu { display: block; }
-  .hero-video-section { height: auto; min-height: 650px; }
-  .hero-content { padding: 42px 0 110px; }
-  .hero-stats { display: grid; width: min(100%, 350px); gap: 16px; margin: 34px auto 0; }
+  .hero-video-section { height: auto; min-height: 100svh; }
+  .hero-content { padding: 34px 0 92px; }
+  .hero-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(100%, 360px); gap: 12px; margin: 28px auto 0; }
+  .stat-item { min-width: 0; padding: 16px 10px; border-radius: 22px; }
+  .stat-number { font-size: 42px; }
+  .stat-item span:last-child { margin-top: 6px; font-size: 14px; }
+  .scroll-indicator { bottom: 18px; }
+  .scroll-indicator span { display: none; }
+  .scroll-indicator i { font-size: 28px; }
   .section { padding: 54px 0; }
   .white-card, .about-card { padding: 26px 20px; }
   .grid-3, .grid-4, .topics-grid, .footer-grid, .video-grid { grid-template-columns: 1fr; }
